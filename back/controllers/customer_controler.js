@@ -46,7 +46,7 @@ const AddCustomer = async (req,res) => {
   temp_body["user"] = req.user._id
   const new_customer = await Customer.create(req.body)
   
-  res.send(new_customer)
+  res.status(StatusCodes.OK).json({ new_customer }) 
 }
 
 

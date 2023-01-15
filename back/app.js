@@ -13,6 +13,9 @@ const user_router = require('./routes/user_routes')
 const customer_router = require('./routes/customer_routes')
 const countries_router = require('./routes/countries_routes')
 const airlines_router = require('./routes/airlines_routes')
+const flights_router = require('./routes/flight_routes')
+const tickets_router = require('./routes/tickets_routes')
+
 
 
 
@@ -34,6 +37,8 @@ app.use('/api/users', user_router);
 app.use('/api/customers', customer_router);
 app.use('/api/countries', countries_router);
 app.use('/api/airlines', airlines_router);
+app.use('/api/flights', flights_router);
+app.use('/api/tickets', tickets_router);
 
 
 app.use(not_found);

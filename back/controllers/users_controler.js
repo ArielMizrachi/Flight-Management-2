@@ -43,7 +43,7 @@ const GetUserName = async (req,res) => {
 // add a new user 
 const RegisterUser = async (req,res) => {
     const new_user = await User.create(req.body)
-    res.send(new_user)
+    res.status(StatusCodes.OK).json(new_user)
 }
 
 

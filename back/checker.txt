@@ -1,1 +1,4 @@
 https://stackoverflow.com/questions/38945608/custom-error-messages-with-mongoose - unique
+
+//   console.log(date.toISOString().replace(/T/, ' ').replace(/\..+/, ''))
+

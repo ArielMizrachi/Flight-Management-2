@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const {Schema} = require('mongoose');
+const Flight = require('../models/Flights')
+
 
 const AirLinesSchema = new mongoose.Schema({
     name:{
@@ -25,6 +27,17 @@ const AirLinesSchema = new mongoose.Schema({
 
 // getting an auto increment id
 AirLinesSchema.plugin(AutoIncrement, {inc_field: 'airline_id'});
+
+
+// remove all the flight connected to the airline
+AirLinesSchema.pre('findOneAndRemove',async function(next) {
+    
+    // get the current airline details
+    const current_airline = await this.model.findOne(this.getQuery())
+    const id = current_airline._id
+    await Flight.deleteMany({airline_company: id})
+    next();
+});
 
 
 // // serializer for customer

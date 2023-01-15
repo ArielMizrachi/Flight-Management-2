@@ -7,8 +7,8 @@ const {AddCustomer, GetCustomers, IsCustomer, DeleteCustomer, UpdateCustomer} = 
 
 // goes first to the middleware , next , function
 
-router.route('/GetCustomers/').get(AuthMiddleware,GetCustomers)
-router.route('/IsCustomer/').get(AuthMiddleware,IsCustomer)
+router.route('/GetCustomers/').get(GetCustomers)
+router.route('/IsCustomer/').get(IsCustomer)
 router.route('/AddCustomers/').post(AuthMiddleware,AddCustomer)
 router.route('/DelCustomers/:id').delete(AuthMiddleware, DeleteCustomer)
 router.route('/PutCustomers/:id').put(AuthMiddleware, UpdateCustomer)

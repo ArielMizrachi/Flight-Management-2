@@ -23,6 +23,8 @@ const GetAirlines = async (req,res) => {
 
 }
 
+
+
 // getting just one airline
 const GetOneAirline = async (req,res) => {
 
@@ -36,6 +38,8 @@ const GetOneAirline = async (req,res) => {
       res.status(StatusCodes.OK).json( one_airline )
 }
 
+
+
 // checking if a user is an airline
 const IsAirline = async (req,res) => {
   const id =req.user._id
@@ -48,7 +52,7 @@ const IsAirline = async (req,res) => {
 
 
 
-// add a new customer
+// add a new airline
 const AddAirline= async (req,res) => {
 
   // adding the country and user to the airline company
@@ -57,11 +61,12 @@ const AddAirline= async (req,res) => {
   temp_body["country"] = await Country.findOne({name: req.body.country})
   const new_airline = await Airline.create(req.body)
   
-  res.send(new_airline)
+  res.status(StatusCodes.OK).json({ new_airline }) 
 }
 
 
-// update a customer
+
+// update airline
 const UpdateAirline = async (req,res) => {
 
   // getting the airline id
@@ -79,6 +84,7 @@ const UpdateAirline = async (req,res) => {
     }   
     res.status(StatusCodes.OK).json({ updated_airline })                                     
 }
+
 
 
 // delete a airline
