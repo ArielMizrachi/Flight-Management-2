@@ -1,4 +1,17 @@
 https://stackoverflow.com/questions/38945608/custom-error-messages-with-mongoose - unique
 
-//   console.log(date.toISOString().replace(/T/, ' ').replace(/\..+/, ''))
 
+  delete temp_body["flights_id"]-remove from dicktionary
+
+
+- delete and put in tickts
+- cascade delete from flights and customers
+
+
+TO DO AND CHECK
+-user            done
+-login           done
+-airline           
+-country           
+-flight           
+-ticket           

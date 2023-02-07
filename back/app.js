@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('express-async-errors');
+var cors = require('cors');
 
 const express = require('express');
 const app = express();
@@ -25,11 +26,9 @@ const ConnectDB = require('./db/connect')
 // middleware
 app.use(express.static('./public'));
 app.use(express.json());
+app.use(cors());
 
-// chk
-app.get('/', (req, res) => {
-  res.send('jobs api');
-});
+
 
 // routes
 app.use('/api/login', login_router);
@@ -44,7 +43,7 @@ app.use('/api/tickets', tickets_router);
 app.use(not_found);
 app.use(errorHandlerMiddleware);
 
-const port =  3000;
+const port =  4000;
 
 const start = async () => {
   try {
@@ -53,6 +52,7 @@ const start = async () => {
       console.log(`Server is listening on port localhost:${port}...`)
     );
   } catch (error) {
+    console.log('Error')
     console.log(error);
   }
 };

@@ -22,11 +22,24 @@ const GetCustomers = async (req,res) => {
 
 }
 
+// getting just one customer
+const GetOneCustomer = async (req,res) => {
+
+  // fine the customer
+    const id = req.params.id
+    const chk_customer = await Customer.findOne({customer_id: id})
+      if (!chk_customer) {
+        throw new NotFoundError(`No Customer with id: ${id}`)
+      }
+    const one_customer = chk_customer.CustomerSerializer()
+      res.status(StatusCodes.OK).json( one_customer )
+}
 
 // checking if a user is customer
 const IsCustomer = async (req,res) => {
-  const id =req.user._id
-  const chk_customer = await Customer.findOne({user: id})
+
+  // const my_user = await User.findOne({user_id: req.user.id})
+  const chk_customer = await Customer.findOne({user: req.user._id})
       if (!chk_customer) {
         return res.status(StatusCodes.OK).json({"is_cutomer": false,
                                                 "customer_id": ""
@@ -43,7 +56,7 @@ const IsCustomer = async (req,res) => {
 const AddCustomer = async (req,res) => {
 
   const temp_body = req.body
-  temp_body["user"] = req.user._id
+  temp_body["user"] =await User.findOne({user_id: req.user.user_id})
   const new_customer = await Customer.create(req.body)
   
   res.status(StatusCodes.OK).json({ new_customer }) 
@@ -78,6 +91,7 @@ const DeleteCustomer = async (req,res) => {
 
 module.exports={
     GetCustomers,
+    GetOneCustomer,
     AddCustomer,
     IsCustomer,
     DeleteCustomer,

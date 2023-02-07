@@ -29,13 +29,13 @@ const UserSchema = new mongoose.Schema({
 
     },
     is_superuser:{
-        type:String,
+        type:Boolean,
         required:[true,'please provide email'],
         default: false,     
 
     },
     is_staff:{
-        type:String,
+        type:Boolean,
         required:[true,'please provide email'], 
         default: false,   
     },
@@ -59,6 +59,7 @@ UserSchema.pre('findOneAndRemove',async function(next) {
     // get the current user details
     const current_user = await this.model.findOne(this.getQuery())
     const id = current_user._id
+
     await Customer.findOneAndRemove({user: id})
     await Airline.findOneAndRemove({user: id})
     next();

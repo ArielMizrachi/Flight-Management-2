@@ -10,7 +10,6 @@ const mongoose = require('mongoose')
 // getting all of the countries
 const GetCountries = async (req,res) => {
 
-    // using populate to replace the objectid with the real object
     const clist = []
     const all_countries = await Countries.find({})
 
@@ -20,6 +19,16 @@ const GetCountries = async (req,res) => {
 
 }
 
+// getting all of the countries
+const GetCountriesName = async (req,res) => {
+  const cnlist = []
+  const all_countries = await Countries.find({})
+
+  // getting all of the countries names
+  all_countries.map(country => { cnlist.push(country.name)})
+  res.status(StatusCodes.OK).json(cnlist)
+
+}
 
 
 
@@ -61,6 +70,7 @@ const AddCountry = async (req,res) => {
 
 module.exports={
   GetCountries,
+  GetCountriesName,
   AddCountry,
     // IsCustomer,
     // DeleteCustomer,

@@ -42,13 +42,15 @@ const GetMyFlights = async (req,res) => {
   const flist = []
   // finding the user then the airline and then the lights
   const user_id =req.user._id
-  const airline = await Airline.findOne({user: user_id})
+   //  find[{}] returns a list (of dicktionaries)
+  const airline = await Airline.find({user: user_id})
 
   // finding all of the flights of the specific airline
-  const my_flights = await Flight.find({airline_company: airline._id}).populate(["airline_company","origin_country","destenation_country"])
+  const my_flights = await Flight.find({airline_company: airline[0]._id}).populate(["airline_company","origin_country","destenation_country"])
   my_flights.map(flight => { flist.push(flight.FlightsSerializer()) })
 
-  res.status(StatusCodes.OK).json({ "my_flights":flist , "company_name":airline.name })
+ 
+  res.status(StatusCodes.OK).json({ "my_flights":flist , "company_name":airline[0].name })
 }
 
 
@@ -106,21 +108,19 @@ const UpdateFlight = async (req,res) => {
 
 // // delete a flight
 const DeleteFlight = async (req,res) => {
-
-    const id = req.params.id
-    const deleted_flight = await Flight.findOneAndRemove({flight_id:id})
-    if (!deleted_flight) {
-        throw new NotFoundError(`No flight with id ${id}`)
-    }   
-    res.status(StatusCodes.OK).send('done')    
-
+  const id = req.params.id
+  const deleted_flight = await Flight.findOneAndRemove({flight_id:id})
+  if (!deleted_flight) {
+      throw new NotFoundError(`No flight with id ${id}`)
+  }   
+  res.status(StatusCodes.OK).send('done') 
 }
 
 module.exports={
     GetFlights,
     GetOneFlight,
-    AddFlights,
     GetMyFlights,
+    AddFlights,
     DeleteFlight,
     UpdateFlight,
 }

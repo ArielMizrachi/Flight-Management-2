@@ -29,11 +29,12 @@ const Login = async (req,res) =>{
     
 
     // getting the othere relevent information for the token (username is above)
+
     const _id = my_user._id
     const user_id = my_user.user_id
     const is_staff = my_user.is_staff
     const is_superuser = my_user.is_superuser
-
+   
     // making the token and refresh token
     const token = JWT.sign({_id,user_id,username,is_staff,is_superuser},process.env.JWT_SECRET, {expiresIn:'30d'})
     const refresh_token = JWT.sign({_id},process.env.JWT_SECRET_REFRESH, {expiresIn:'30d'})

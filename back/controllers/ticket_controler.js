@@ -58,7 +58,6 @@ const GetMyTickets= async (req,res) => {
   const user_id =req.user._id
   const customer = await Customer.findOne({user: user_id})
 
-  console.log(customer)
   // finding all of the tickets of the customer
   const my_tickets = await Ticket.find({customer: customer._id}).populate("customer")
   .populate({ path: 'flight',populate: [{path: 'origin_country',model: 'Countries'},
@@ -75,12 +74,11 @@ const GetMyTickets= async (req,res) => {
 const AddTicket = async (req,res) => {
 
   const user_id = req.user._id
-  const temp_body = req.body
+  const temp_body ={}
 
   // defining the customer and flight abd removing the flight id from the body
   temp_body["customer"] = await Customer.findOne({user: user_id})
   temp_body["flight"] = await Flight.findOne({flight_id: req.body.flights_id})
-  delete temp_body["flights_id"]
 
   const new_ticket = await Ticket.create(temp_body)
 
@@ -89,30 +87,34 @@ const AddTicket = async (req,res) => {
 }
 
 
-// // update a customer
-// const UpdateCustomer = async (req,res) => {
-//     customer_id = req.params.id
-//     const updated_customer = await Customer.findOneAndUpdate({customer_id: customer_id},
-//                                                               req.body,
-//                                                              {new:true,runValidators:true})
-//     if (!updated_customer) {
-//          throw new NotFoundError(`No customer with id ${customer_id}`)
-//     }   
-//     res.status(StatusCodes.OK).json({ updated_customer })                                     
-// }
+// // update a ticket
+const UpdateTicket = async (req,res) => {
+    ticket_id = req.params.id
+    // creating the updated ticket body
+    const temp_body = {}
+    temp_body["customer"] = await Customer.findOne({customer_id: req.body.customer_id})
+    temp_body["flight"] = await Flight.findOne({flight_id: req.body.flights_id})
+    const updated_ticket = await Ticket.findOneAndUpdate({ticket_id: ticket_id},
+                                                              temp_body,
+                                                             {new:true,runValidators:true})
+    if (!updated_ticket) {
+         throw new NotFoundError(`No customer with id ${customer_id}`)
+    }   
+    res.status(StatusCodes.OK).json({ updated_ticket })  
+}
 
 
-// // delete a customer
-// const DeleteCustomer = async (req,res) => {
+// delete a ticket
+const DeleteTicket = async (req,res) => {
 
-//     customer_id = req.params.id
-//     const deleted_customer = await Customer.findOneAndRemove({customer_id:customer_id})
-//     if (!deleted_customer) {
-//         throw new NotFoundError(`No customer with id ${id}`)
-//     }   
-//     res.status(StatusCodes.OK).send('done')     
+    ticket_id = req.params.id
+    const deleted_ticket = await Ticket.findOneAndRemove({ticket_id:ticket_id})
+    if (!deleted_ticket) {
+        throw new NotFoundError(`No ticket with id ${id}`)
+    }   
+    res.status(StatusCodes.OK).send('done')     
 
-// }
+}
 
 
 module.exports={
@@ -120,6 +122,6 @@ module.exports={
     GetOneTicket,
     GetMyTickets,
     AddTicket,
-    // DeleteCustomer,
-    // UpdateCustomer,
+    DeleteTicket,
+    UpdateTicket,
 }

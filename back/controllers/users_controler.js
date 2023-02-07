@@ -7,20 +7,22 @@ const { BadRequestError, NotFoundError } = require('../errors')
 
 // getting all of the users
 const GetUsers = async (req,res) => {
+  
     const ulist = []
     const all_users = await User.find({})
     // getting all of the user in a certain format (the serializer i in the model)
     all_users.map(user => { ulist.push(user.UserSerializer()) })
-
+    // console.log(all_users)
     res.status(StatusCodes.OK).json(ulist)
 }
 
 
 // getting just one user
 const GetOneUser = async (req,res) => {
-
+console.log('in one user')
   // fine the user
     const id = req.params.id
+    console.log(id)
     const chk_user = await User.findOne({user_id: id})
       if (!chk_user) {
         throw new NotFoundError(`No User with id: ${id}`)
@@ -52,7 +54,7 @@ const UpdateUser = async (req,res) => {
     const user_id = req.params.id
     const updated_user = await User.findOneAndUpdate({user_id: user_id},
                                                       req.body,
-                                                     {new:true,runValidators:true})
+                                                     {new:true,runValidators:true})                                                
     if (!updated_user) {
          throw new NotFoundError(`No user with id ${user_id}`)
     }   
@@ -62,9 +64,10 @@ const UpdateUser = async (req,res) => {
 
 // delete a user
 const DeleteUser = async (req,res) => {
-
-    const id = req.params.id
+  
+    const id = req.params.id 
     const deleted_user = await User.findOneAndRemove({user_id:id})
+
     if (!deleted_user) {
         throw new NotFoundError(`No user with id ${id}`)
     }   

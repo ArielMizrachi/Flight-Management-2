@@ -10,7 +10,7 @@ const {RegisterUser, GetUsers, GetOneUser,DeleteUser, UpdateUser, GetUserName} =
 router.route('/GetUsers').get(GetUsers)
 router.route('/GetUsers/:id').get(GetOneUser)
 router.route('/GetUsersName').get(GetUserName)
-router.route('/RegisterUser').post(RegisterUser)
+router.route('/RegisterUser/').post(RegisterUser)
 router.route('/DelUser/:id').delete(AuthMiddleware, DeleteUser)
 router.route('/PutUser/:id').put(AuthMiddleware, UpdateUser)
 

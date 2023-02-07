@@ -42,14 +42,25 @@ const GetOneAirline = async (req,res) => {
 
 // checking if a user is an airline
 const IsAirline = async (req,res) => {
-  const id =req.user._id
-  const chk_airline = await Airline.findOne({user: id})
+  const my_user = await User.findOne({user_id: req.user.user_id})
+  const chk_airline = await Airline.findOne({user: my_user})
       if (!chk_airline) {
         return res.status(StatusCodes.OK).json(false)
       }
   res.status(StatusCodes.OK).json(true)
 }
 
+
+// getting all of the airlines names
+const GetAirlinesName = async (req,res) => {
+
+  const anlist = []
+  const all_airlines = await Airline.find({})
+
+  all_airlines.map(airline => { anlist.push(airline.name)})
+  res.status(StatusCodes.OK).json(anlist)
+
+}
 
 
 // add a new airline
@@ -104,6 +115,7 @@ module.exports={
   GetAirlines,
   GetOneAirline,
   IsAirline,
+  GetAirlinesName,
   AddAirline,
   UpdateAirline,
   DeleteAirline,
