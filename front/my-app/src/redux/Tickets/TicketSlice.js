@@ -79,7 +79,7 @@ export const TicketSlice = createSlice({
       // adds a ticket
       .addCase(AddTicketAsync.fulfilled, (state, action) => {
         if(typeof action.payload !== 'number'){
-          state.tickets.push(action.payload);
+          // state.tickets.push(action.payload);
           state.error_checker='good'
         }
         else {

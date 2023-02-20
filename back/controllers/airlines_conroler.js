@@ -70,7 +70,7 @@ const AddAirline= async (req,res) => {
   const temp_body = req.body
   temp_body["user"] = req.user._id
   temp_body["country"] = await Country.findOne({name: req.body.country})
-  const new_airline = await Airline.create(req.body)
+  const new_airline = await Airline.create(temp_body)
   
   res.status(StatusCodes.OK).json({ new_airline }) 
 }
@@ -101,10 +101,10 @@ const UpdateAirline = async (req,res) => {
 // delete a airline
 const DeleteAirline = async (req,res) => {
 
-    airline_id = req.params.id
+    const airline_id = req.params.id
     const deleted_airline = await Airline.findOneAndRemove({airline_id:airline_id})
     if (!deleted_airline) {
-        throw new NotFoundError(`No airline with id ${id}`)
+        throw new NotFoundError(`No airline with id ${airline_id}`)
     }   
     res.status(StatusCodes.OK).send('done')     
 

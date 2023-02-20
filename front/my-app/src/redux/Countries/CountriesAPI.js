@@ -26,17 +26,17 @@ export function GetCountriesName() {
 }
 
   // add a Country
-export function AddCountry(new_Country) {
+export function AddCountry(new_country) {
   token =  localStorage.getItem("token");
   return new Promise((resolve) =>
-    axios.post(MY_SERVER+'AddCountries/', new_Country, {
+    axios.post(MY_SERVER+'AddCountries/', new_country, {
       headers: {
         Authorization: `Bearer ${token} `,
+        'Content-Type': 'multipart/form-data',
       },
     }).then((res) => resolve({ data: res.data }))
 
     .catch(error => {
-      console.log('hello')
       console.log(error.response.status)
       resolve({ data: error.response.status })
     }));
@@ -67,6 +67,7 @@ export function UpdateCountry(NewCountry,id) {
       .put(MY_SERVER+'PutCountries/' + id, NewCountry, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       }).then((res) => resolve({ data: res.data }))
   

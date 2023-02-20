@@ -2,13 +2,14 @@ json-server --watch db.json --port=3005
 
 # goals
 - airline and chk cascade - Done
-- flight and chk cascade
-- check flightuseradd?
+- flight and chk cascade - Done
+- check flightuseradd? - Done?
 - ticket and chk cascade
 - country and everthing
 - fix the unique god dammit (already started in the back)
 - that the update does update the home page (name)
 - return admin to customer, airline and icon 
+- check the post (push into tickets)
 
 # done
 - fix link update - Done

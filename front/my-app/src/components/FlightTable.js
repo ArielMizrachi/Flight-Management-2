@@ -59,7 +59,7 @@ export default function FlightTable({all_flights}) {
  useEffect(() => {
   if (error_chk === 'good'){
       dispatch(TicketErrorCalibration())
-      navigate("/" ,{state:{msg: `The Flight from was bought successfully` }})
+      navigate("/" ,{state:{msg: `The Flight  was bought successfully` }})
   } 
   // in case of 401 
   if (error_chk === 'Please login again'){
@@ -85,9 +85,9 @@ export default function FlightTable({all_flights}) {
           {/* table headers */}
           <TableRow>
             <TableCellHead align='left'>flight id</TableCellHead>
-            <TableCellHead align='left'>company id</TableCellHead>
-            <TableCellHead align='left'>origin country id</TableCellHead>
-            <TableCellHead align='left'>destination country id</TableCellHead>
+            <TableCellHead align='left'>company</TableCellHead>
+            <TableCellHead align='left'>origin country</TableCellHead>
+            <TableCellHead align='left'>destination country</TableCellHead>
             <TableCellHead align='left'>departure time</TableCellHead>
             <TableCellHead align='left'>landing time</TableCellHead>
             <TableCellHead align='left'>ticets remaining</TableCellHead>

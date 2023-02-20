@@ -36,7 +36,7 @@ export default function CountriesCards({all_countries}) {
       <CardMedia
         component="img"
         height="20"
-        image={`http://127.0.0.1:8000/static/images/${country.flag}`}
+        image={`http://localhost:4000/${country.flag}`}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -49,7 +49,7 @@ export default function CountriesCards({all_countries}) {
                       variant="contained"
                       sx={{color:'white', background:'#5B5EA6'}}
                       onClick={()=>{dispatch(GetOneCountryAsync(country.id));
-                                    setTimeout(() => navigate(`/UpdateCountry`), 50)}}>
+                                    setTimeout(() => navigate(`/UpdateCountry`), 250)}}>
                         update
               </Button>
               <IconButton align='left'

@@ -50,7 +50,7 @@ export default function MyFlightTable ({all_flights}) {
           {/* table headers */}
           <TableRow>
             <TableCellHead align='left'>flight id</TableCellHead>
-            <TableCellHead align='left'>company id</TableCellHead>
+            <TableCellHead align='left'>company</TableCellHead>
             <TableCellHead align='left'>origin country id</TableCellHead>
             <TableCellHead align='left'>destination country id</TableCellHead>
             <TableCellHead align='left'>departure time</TableCellHead>

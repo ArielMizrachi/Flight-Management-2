@@ -12,7 +12,6 @@ const mongoose = require('mongoose')
 
 // // getting all of the tickets
 const GetTickets = async (req,res) => {
-
   const tlist = []
 
     // using populate to replace the objectid with the real object and going 1 deep into flight
@@ -33,7 +32,7 @@ const GetTickets = async (req,res) => {
 // getting just one ticket
 const GetOneTicket = async (req,res) => {
 
-  // find the ticket
+  // find the ticket (populate twice into flight)
     const id = req.params.id
     const chk_ticket = await Ticket.findOne({ticket_id: id}).populate("customer")
     .populate({ path: 'flight',populate: [{path: 'origin_country',model: 'Countries'},
@@ -81,7 +80,6 @@ const AddTicket = async (req,res) => {
   temp_body["flight"] = await Flight.findOne({flight_id: req.body.flights_id})
 
   const new_ticket = await Ticket.create(temp_body)
-
   res.status(StatusCodes.OK).send(new_ticket)
 
 }
@@ -89,7 +87,7 @@ const AddTicket = async (req,res) => {
 
 // // update a ticket
 const UpdateTicket = async (req,res) => {
-    ticket_id = req.params.id
+    const ticket_id = req.params.id
     // creating the updated ticket body
     const temp_body = {}
     temp_body["customer"] = await Customer.findOne({customer_id: req.body.customer_id})
@@ -107,10 +105,10 @@ const UpdateTicket = async (req,res) => {
 // delete a ticket
 const DeleteTicket = async (req,res) => {
 
-    ticket_id = req.params.id
+    const ticket_id = req.params.id
     const deleted_ticket = await Ticket.findOneAndRemove({ticket_id:ticket_id})
     if (!deleted_ticket) {
-        throw new NotFoundError(`No ticket with id ${id}`)
+        throw new NotFoundError(`No ticket with id ${ticket_id}`)
     }   
     res.status(StatusCodes.OK).send('done')     
 

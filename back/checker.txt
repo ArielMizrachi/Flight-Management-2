@@ -1,5 +1,6 @@
-https://stackoverflow.com/questions/38945608/custom-error-messages-with-mongoose - unique
-
+## in reference of why temp_body and req.body are the same
+It seems that the original intention was to separate the request data and the newly added properties, 
+but since they are both assigned to the same object temp_body, the original req.body is also modified.
 
   delete temp_body["flights_id"]-remove from dicktionary
 

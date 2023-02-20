@@ -8,6 +8,9 @@ const app = express();
 const not_found = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+// body paraser import
+const bodyParser = require('body-parser');
+
 // routers import
 const login_router = require('./routes/login_routes')
 const user_router = require('./routes/user_routes')
@@ -17,18 +20,17 @@ const airlines_router = require('./routes/airlines_routes')
 const flights_router = require('./routes/flight_routes')
 const tickets_router = require('./routes/tickets_routes')
 
-
-
-
 // db import
 const ConnectDB = require('./db/connect')
 
 // middleware
-app.use(express.static('./public'));
+app.use(express.static('./uploads'))
 app.use(express.json());
 app.use(cors());
 
-
+// image handling (for FormData)
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 // routes
 app.use('/api/login', login_router);

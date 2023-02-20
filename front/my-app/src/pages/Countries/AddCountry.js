@@ -37,7 +37,6 @@ const AddCountry = () => {
     //   check if the flight was implemnted correctly
     useEffect(() => {
         if (error_chk === 'good'){
-            console.log(flag)
             dispatch(CountryErrorCalibration())
             navigate("/Countries" ,{state:{msg: `The country ${name} was added to the database` }})
         } 
@@ -51,9 +50,9 @@ const AddCountry = () => {
       }, [error_chk]);
     
     const HandleSubmit = () => {
-        let form_data = new FormData();
-        form_data.append("name", name, );
-        form_data.append("flag", flag);
+        let form_data = new FormData()
+        form_data.append("name", name)
+        form_data.append("flag", flag)
         dispatch(AddCountryAsync(form_data))    
     }
 

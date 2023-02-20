@@ -100,11 +100,12 @@ const UpdateFlights = () => {
                                 id="combo-box-countries"
                                 options={airlines_names}
                                 defaultValue={flight.airline_company}
+                                value={flight.airline_company}
                                 sx={{ width: 225 }}
                                 onChange={(event, newValue) => {
                                     SetCompanyId(newValue);
                                 }}
-                                renderInput={(params) => <TextField {...params} label="Airline" />}
+                                renderInput={(params) => <TextField {...params} label="Airline"/>}
                                 />                              
                     </Grid>
                           : 
@@ -120,6 +121,7 @@ const UpdateFlights = () => {
                                 options={countries_names}
                                 sx={{ width: 225 }}
                                 defaultValue={flight.origin_country}
+                                value={flight.origin_country}
                                 onChange={(event, newValue) => {
                                     SetOriginCountryId(newValue);
                                 }}
@@ -134,6 +136,7 @@ const UpdateFlights = () => {
                             options={countries_names}
                             sx={{ width: 225 }}
                             defaultValue={flight.destenation_country}
+                            value={flight.destenation_country}
                             onChange={(event, newValue) => {
                                 SetDestenationCountryId(newValue);
                             }}

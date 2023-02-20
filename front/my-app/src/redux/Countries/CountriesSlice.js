@@ -18,7 +18,7 @@ const initialState = {
 
 // get all country
 export const GetCountriesAsync = createAsyncThunk(
-  "flight/GetCountries",
+  "country/GetCountries",
   async () => {
     const response = await GetCountries();
     return response.data;
@@ -47,7 +47,6 @@ export const GetCountriesNamesAsync = createAsyncThunk(
 export const AddCountryAsync = createAsyncThunk(
   "country/AddCountry",
   async (new_country) => { 
-    console.log(new_country)
     const response = await AddCountry(new_country);
     return response.data;
   }
@@ -108,7 +107,6 @@ export const CountriesSlice = createSlice({
       // adds a Country
       .addCase(AddCountryAsync.fulfilled, (state, action) => {
         if(typeof action.payload !== 'number'){
-          console.log(action.payload)
           state.countries.push(action.payload);
           state.error_checker='good'
         }

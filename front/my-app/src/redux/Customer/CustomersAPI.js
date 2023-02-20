@@ -28,7 +28,7 @@ export function IsCustomer() {
       },
     }).then((res) => resolve({ data: res.data }))
     .catch(error => {
-      resolve({ data: error.response.status })
+      resolve({ data: error.msg })
     })
   );
 }
@@ -44,7 +44,7 @@ export function AddCustomer(new_customer) {
     }).then((res) => resolve({ data: res.data }))
 
     .catch(error => {
-      resolve({ data: error.response.status })
+      resolve({ 'data': error.response.status, 'msg': error.response.data.msg})
     }));
   
 }
@@ -77,7 +77,7 @@ export function UpdateCustomer(NewCustomer,id) {
       }).then((res) => resolve({ data: res.data }))
   
       .catch(error => {
-        resolve({ data: error.response.status })
+        resolve({ 'data': error.response.status, 'msg': error.response.data.msg})
       })
     );
   }

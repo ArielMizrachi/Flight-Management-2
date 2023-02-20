@@ -65,11 +65,11 @@ const UpdateUser = async (req,res) => {
 // delete a user
 const DeleteUser = async (req,res) => {
   
-    const id = req.params.id 
-    const deleted_user = await User.findOneAndRemove({user_id:id})
+    const user_id = req.params.id 
+    const deleted_user = await User.findOneAndRemove({user_id:user_id})
 
     if (!deleted_user) {
-        throw new NotFoundError(`No user with id ${id}`)
+        throw new NotFoundError(`No user with id ${user_id}`)
     }   
     res.status(StatusCodes.OK).send('done')    
 

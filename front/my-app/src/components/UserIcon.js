@@ -156,7 +156,7 @@ const UserIcon = () => {
          <Box>                   
         <MenuItem onClick={()=>{handleClose();
                                 dispatch(GetOneCustomerAsync(customer_id));
-                                setTimeout(() => navigate(`/UpdateCustomer`), 100)}}>update profile</MenuItem>
+                                setTimeout(() => navigate(`/UpdateCustomer`), 250)}}>update profile</MenuItem>
 
         <MenuItem onClick={()=>{handleClose() ;
                                  navigate(`/MyTickets`)}}>MyTickets</MenuItem>

@@ -57,7 +57,7 @@ const AddCustomer = async (req,res) => {
 
   const temp_body = req.body
   temp_body["user"] =await User.findOne({user_id: req.user.user_id})
-  const new_customer = await Customer.create(req.body)
+  const new_customer = await Customer.create(temp_body)
   
   res.status(StatusCodes.OK).json({ new_customer }) 
 }
@@ -65,7 +65,7 @@ const AddCustomer = async (req,res) => {
 
 // update a customer
 const UpdateCustomer = async (req,res) => {
-    customer_id = req.params.id
+    const customer_id = req.params.id
     const updated_customer = await Customer.findOneAndUpdate({customer_id: customer_id},
                                                               req.body,
                                                              {new:true,runValidators:true})
@@ -79,10 +79,10 @@ const UpdateCustomer = async (req,res) => {
 // delete a customer
 const DeleteCustomer = async (req,res) => {
 
-    customer_id = req.params.id
+    const customer_id = req.params.id
     const deleted_customer = await Customer.findOneAndRemove({customer_id:customer_id})
     if (!deleted_customer) {
-        throw new NotFoundError(`No customer with id ${id}`)
+        throw new NotFoundError(`No customer with id ${customer_id}`)
     }   
     res.status(StatusCodes.OK).send('done')     
 

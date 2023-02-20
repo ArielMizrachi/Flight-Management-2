@@ -47,7 +47,6 @@ FlightsSchema.pre(['findOneAndRemove','deleteMany'],async function(next) {
     const current_flight = await this.model.find(this.getQuery())
 
     for (const flight of current_flight) {
-        console.log(flight)
         await Ticket.deleteMany({flight: flight._id});
     }
     next();

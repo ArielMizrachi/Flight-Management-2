@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ErrorHandler from '../ErrorHandler'
+// import ErrorHandler from '../ErrorHandler'
 import { GetCustomers, AddCustomer, DeleteCustomer, GetOneCustomer, UpdateCustomer, IsCustomer} from "./CustomersAPI";
 
 
@@ -40,7 +40,7 @@ export const AddCustomerAsync = createAsyncThunk(
   "flight/AddCustomer",
   async (new_customer) => { 
     const response = await AddCustomer(new_customer);
-    return response.data;
+    return ({'data':response.data,'msg' :response.msg});
   }
 );
 
@@ -67,7 +67,7 @@ export const UpdateCustomerAsync = createAsyncThunk(
   "airline/UpdateCustomer",  
   async (data) => { 
     const response = await UpdateCustomer (data.customer_data, data.id);
-    return response.data;
+    return ({'data':response.data,'msg' :response.msg});
   }
 );
 
@@ -78,8 +78,8 @@ export const CustomerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-          CustomerErrorCalibration: (state,action)=>{
-            state.error_checker = null
+      CustomerErrorCalibration: (state,action)=>{
+        state.error_checker = null
         },
       IsNowACustomer: (state,action)=>{
         state.is_customer = true
@@ -116,12 +116,13 @@ export const CustomerSlice = createSlice({
 
       // adds a customer
       .addCase(AddCustomerAsync.fulfilled, (state, action) => {
-        if(typeof action.payload !== 'number'){
+        console.log(action.payload)
+        if(typeof action.payload.data !== 'number'){
           state.customers.push(action.payload);
           state.error_checker='good'
         }
         else {
-          state.error_checker=ErrorHandler(action.payload)
+          state.error_checker= action.payload.msg
           console.log(state.error_checker)
 
         }
@@ -130,12 +131,12 @@ export const CustomerSlice = createSlice({
 
       // update a customer
       .addCase(UpdateCustomerAsync.fulfilled, (state, action) => {
-        if(typeof action.payload !== 'number'){
+        if(typeof action.payload.data !== 'number'){
           state.error_checker='good'
         }
         else {
           console.log('in error update')
-          state.error_checker=ErrorHandler(action.payload)
+          state.error_checker= action.payload.msg
           console.log(state.error_checker)
 
         }

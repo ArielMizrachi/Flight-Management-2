@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const Airlines = require('../models/Airlines')
+const Flights = require('../models/Flights')
 
 
 const CountriesSchema = new mongoose.Schema({
@@ -11,7 +13,7 @@ const CountriesSchema = new mongoose.Schema({
     },
     flag:{
         type:String,
-        required:[true,'please provide password'],
+        required:[true,'please provide flag'],
         minlength:3,
         default:'something',
 
@@ -23,13 +25,27 @@ const CountriesSchema = new mongoose.Schema({
 CountriesSchema.plugin(AutoIncrement, {inc_field: 'country_id'});
 
 
+// remove all the airlines and flights connected to the country
+CountriesSchema.pre('findOneAndRemove',async function(next) {
+
+    // get the current flight details
+    const current_country = await this.model.findOne(this.getQuery())    
+    const id = current_country._id
+    await Airlines.deleteMany({country: id})
+    await Flights.deleteMany({origin_country: id})
+    await Flights.deleteMany({destenation_country: id})
+
+    next();
+});
+
+
 
 // serializer for country
 CountriesSchema.methods.CountriesSerializer = function(){
     return {id:this.country_id,
-            username: this.username,
             name: this.name,
             flag: this.flag}
+
 }
 
 

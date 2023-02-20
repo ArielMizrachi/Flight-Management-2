@@ -32,26 +32,19 @@ const MyNav = () => {
           <Typography color="inherit" sx={{ marginRight: 2 }}>
             <Link style={{textDecoration: 'none'}} to="/">home</Link>
           </Typography>
-        {/* {is_super&& */}
+        {is_super&&
         
           <Typography color="inherit" sx={{ marginRight: 2 }}>
             <Link style={{textDecoration: 'none'}} to="/Customers">customers</Link>
           </Typography>
-        {/* } */}
-        {/* {is_super&& */}
+        }
+        {is_super&&
           <Typography color="inherit" sx={{ marginRight: 2 }}>
             <Link style={{textDecoration: 'none'}} to="/Users">users</Link>
           </Typography>
-          {/*  } */}
-          {/* {is_super&& */}
-          <Typography color="inherit" sx={{ marginRight: 2 }}>
-            <Link style={{textDecoration: 'none'}} to="/Tickets">tickets</Link>
-          </Typography>
-          
-          {/* } */}
-          {/* remove me later */}
+          }
           {is_super&&
-                    <Typography color="inherit" sx={{ marginRight: 2 }}>
+          <Typography color="inherit" sx={{ marginRight: 2 }}>
             <Link style={{textDecoration: 'none'}} to="/Tickets">tickets</Link>
           </Typography>
           
