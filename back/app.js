@@ -8,8 +8,6 @@ const app = express();
 const not_found = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-// body paraser import
-const bodyParser = require('body-parser');
 
 // routers import
 const login_router = require('./routes/login_routes')
@@ -28,9 +26,6 @@ app.use(express.static('./uploads'))
 app.use(express.json());
 app.use(cors());
 
-// image handling (for FormData)
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
 
 // routes
 app.use('/api/login', login_router);
